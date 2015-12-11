@@ -35,6 +35,10 @@ defmodule Board do
     " "
   end
 
+  def unique_tokens(board) do
+    board |> Enum.uniq |> Enum.filter(fn(cell) -> cell !== empty_space end)
+  end
+
   defp transpose(rows), do: transpose(rows, [])
   defp transpose([[]|_], acc), do: Enum.reverse(acc)
   defp transpose(rows, acc) do

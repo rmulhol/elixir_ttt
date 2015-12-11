@@ -147,4 +147,32 @@ defmodule BoardTest do
                                         " ", " ", " ", " "])
     assert Board.side_length(board_4x4) === 4
   end
+
+  test "unique_tokens returns empty if no tokens on board" do
+    empty_board = TestHelper.setup_board([" ", " ", " ",
+                                          " ", " ", " ",
+                                          " ", " ", " "])
+    assert Board.unique_tokens(empty_board) === []
+  end
+
+  test "unique_tokens returns only token if one token on the board" do
+    board_with_token = TestHelper.setup_board(["X", " ", " ",
+                                               " ", " ", " ",
+                                               " ", " ", " "])
+    assert Board.unique_tokens(board_with_token) === ["X"]
+  end
+
+  test "unique_tokens returns both tokens if two tokens on the board" do
+    board_with_tokens = TestHelper.setup_board(["X", "O", " ",
+                                                " ", " ", " ",
+                                                " ", " ", " "])
+    assert Board.unique_tokens(board_with_tokens) === ["X", "O"]
+  end
+
+  test "unique_tokens returns only one instance of unique tokens" do
+    board_with_tokens = TestHelper.setup_board(["X", "O", "X",
+                                                " ", "O", " ",
+                                                "X", " ", "O"])
+    assert Board.unique_tokens(board_with_tokens) === ["X", "O"]
+  end
 end
