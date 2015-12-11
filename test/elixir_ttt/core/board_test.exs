@@ -31,10 +31,11 @@ defmodule BoardTest do
     board_with_moves = ["X", "O", " ",
                         " ", " ", " ",
                         " ", " ", " "]
-    board_with_another_move = ["X", "O", "X",
-                               " ", " ", " ",
-                               " ", " ", " "]
-    assert Board.place_move(board_with_moves, 2, "X") === board_with_another_move
+    expected_board = ["X", "O", "X",
+                      " ", " ", " ",
+                      " ", " ", " "]
+    actual_board = Board.place_move(board_with_moves, 2, "X")
+    assert actual_board === expected_board
   end
 
   test "empty_spaces returns indexes of all spaces on empty board" do
@@ -68,7 +69,7 @@ defmodule BoardTest do
     board_with_moves = ["X", "O", " ",
                         " ", " ", " ",
                         " ", " ", " "]
-    assert !Board.space_empty?(board_with_moves, 1)
+    refute Board.space_empty?(board_with_moves, 1)
   end
 
   test "returns rows' contents for 3x3 board" do

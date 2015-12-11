@@ -1,6 +1,6 @@
 defmodule Board do
   def create(side_length) do
-    Enum.take(Stream.cycle([" "]), side_length * side_length)
+    Enum.take(Stream.cycle([empty_space]), side_length * side_length)
   end
 
   def place_move(board, index, token) do
@@ -20,30 +20,43 @@ defmodule Board do
   end
 
   def columns(board) do
-    transpose = fn
-      ([[]|_], _) -> []
-      (rows, fun) -> [Enum.map(rows, &hd/1)] ++ fun.(Enum.map(rows, &tl/1), fun)
-    end
-
-    transpose.(rows(board), transpose)
+    transpose(rows(board))
   end
 
   def diagonals(board) do
-    diagonal = fn(board, start, increment) ->
-      Enum.drop(board, start)
-      |> Enum.take_every(increment)
-      |> Enum.take(side_length(board))
-    end
-
-    negative_slope_diagonal = diagonal.(board, 0, side_length(board) + 1)
-    positive_slope_diagonal = diagonal.(board, side_length(board) - 1, side_length(board) - 1)
-
-    [negative_slope_diagonal, positive_slope_diagonal]
+    [negative_slope_diagonal(board), positive_slope_diagonal(board)]
   end
 
   def side_length(board) do
-    Enum.count(board)
-    |> :math.sqrt
-    |> round
+    board |> Enum.count |> :math.sqrt |> round
+  end
+
+  def empty_space do
+    " "
+  end
+
+  defp transpose(rows), do: transpose(rows, [])
+  defp transpose([[]|_], acc), do: Enum.reverse(acc)
+  defp transpose(rows, acc) do
+    transpose(Enum.map(rows, &tl/1), [Enum.map(rows, &hd/1) | acc])
+  end
+
+  defp negative_slope_diagonal(board) do
+    start = 0
+    increment = side_length(board) + 1
+    diagonal(board, start, increment)
+  end
+
+  defp positive_slope_diagonal(board) do
+    start = side_length(board) - 1
+    increment = start
+    diagonal(board, start, increment)
+  end
+
+  defp diagonal(board, start, increment) do
+    board
+    |> Enum.drop(start)
+    |> Enum.take_every(increment)
+    |> Enum.take(side_length(board))
   end
 end
