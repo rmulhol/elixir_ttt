@@ -1,5 +1,6 @@
 /_build
 /cover
 /deps
+/elixir_ttt
 erl_crash.dump
 *.ez
