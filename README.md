@@ -1,19 +1,23 @@
 # ElixirTtt
 
-**TODO: Add description**
+An unbeatable command-line game of tic tac toe.
 
-## Installation
+## Prerequisites
 
-If [available in Hex](https://hex.pm/docs/publish), the package can be installed as:
+[Install elixir](http://elixir-lang.org/install.html) (on OS X with Homebrew: `brew install elixir`).
 
-  1. Add elixir_ttt to your list of dependencies in `mix.exs`:
+## How to Run
 
-        def deps do
-          [{:elixir_ttt, "~> 0.0.1"}]
-        end
+`mix escript.build`
 
-  2. Ensure elixir_ttt is started before your application:
+`./elixir_ttt`
 
-        def application do
-          [applications: [:elixir_ttt]]
-        end
+## How to Test
+
+`mix test`
+
+## Versions
+
+Elixir 1.1.1
+
+Erlang/OTP 18
