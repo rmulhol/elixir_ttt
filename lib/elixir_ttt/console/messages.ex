@@ -1,15 +1,15 @@
 defmodule Messages do
   def game_introduction do
-    "\nWelcome to tic tac toe!\n"
+    crlf <> "Welcome to tic tac toe!" <> crlf
   end
 
   def game_configuration_description do
     "You're 'X' and the computer is 'O'. Each space corresponds to a " <>
-    "number. When it's your turn, enter the number to claim the space.\n"
+    "number. When it's your turn, enter the number to claim the space." <> crlf
   end
 
   def game_starting_notification do
-    "Get ready to play. Here we go!\n"
+    "Get ready to play. Here we go!" <> crlf
   end
 
   def ai_move_notification do
@@ -33,10 +33,26 @@ defmodule Messages do
   end
 
   def play_again_offer do
-    "Would you like to play again?\n"
+    "Would you like to play again?" <> crlf
   end
 
   def goodbye do
     "Goodbye!"
+  end
+
+  def crlf do
+    "\n"
+  end
+
+  def space_separator do
+    " | "
+  end
+
+  def dash do
+    "-"
+  end
+
+  def space do
+    " "
   end
 end

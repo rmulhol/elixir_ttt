@@ -1,44 +1,49 @@
 defmodule MessagesTest do
   use ExUnit.Case
 
+  def assert_includes(message, substring) do
+    assert Regex.match?(~r/#{substring}/i, message)
+  end
+
   test "intro_message welcomes the user to tic tac toe" do
-    assert Regex.match?(~r/welcome/i, Messages.game_introduction)
+    assert_includes(Messages.game_introduction, "welcome")
   end
 
   test "game_configuration_description describes game setup" do
-    assert Regex.match?(~r/X/, Messages.game_configuration_description)
-    assert Regex.match?(~r/O/, Messages.game_configuration_description)
+    configuration_description = Messages.game_configuration_description
+    assert_includes(configuration_description, "'X'")
+    assert_includes(configuration_description, "'O'")
   end
 
   test "game_starting_notification notifies the user game is about to begin" do
-    assert Regex.match?(~r/Here we go!/i, Messages.game_starting_notification)
+    assert_includes(Messages.game_starting_notification, "Here we go!")
   end
 
   test "ai_move_notification notifies the user AI player is moving" do
-    assert Regex.match?(~r/AI/, Messages.ai_move_notification)
+    assert_includes(Messages.ai_move_notification, "AI")
   end
 
   test "move_request prompts the user for a move" do
-    assert Regex.match?(~r/move/i, Messages.move_request)
+    assert_includes(Messages.move_request, "move")
   end
 
   test "invalid_move_notification notifies user input is not valid" do
-    assert Regex.match?(~r/invalid/i, Messages.invalid_move_notification)
+    assert_includes(Messages.invalid_move_notification, "invalid")
   end
 
   test "player_win_notification notifies user the passed player has won" do
-    assert Regex.match?(~r/X wins/i, Messages.player_win_notification("X"))
+    assert_includes(Messages.player_win_notification("X"), "X wins")
   end
 
   test "tie_game_notification notifies user of a tie game" do
-    assert Regex.match?(~r/tie game/i, Messages.tie_game_notification)
+    assert_includes(Messages.tie_game_notification, "tie game")
   end
 
   test "play_again_offer prompts the user to select whether to play again" do
-    assert Regex.match?(~r/again?/i, Messages.play_again_offer)
+    assert_includes(Messages.play_again_offer, "again?")
   end
 
   test "goodbye bids farewell to the user" do
-    assert Regex.match?(~r/goodbye/i, Messages.goodbye)
+    assert_includes(Messages.goodbye, "goodbye")
   end
 end

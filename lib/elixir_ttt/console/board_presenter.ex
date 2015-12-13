@@ -5,11 +5,11 @@ defmodule BoardPresenter do
   end
 
   defp present_row(row) do
-    space <> Enum.join(row, " | ") <> space
+    space <> Enum.join(row, Messages.space_separator) <> space
   end
 
   defp line_separator(rows) do
-    crlf <> String.duplicate("-", num_dashes(rows)) <> crlf
+    crlf <> String.duplicate(Messages.dash, num_dashes(rows)) <> crlf
   end
 
   defp num_dashes(rows) do
@@ -27,10 +27,10 @@ defmodule BoardPresenter do
   end
 
   defp space do
-    " "
+    Messages.space
   end
 
   defp crlf do
-    "\n"
+    Messages.crlf
   end
 end
