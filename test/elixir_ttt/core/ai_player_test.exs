@@ -113,4 +113,10 @@ defmodule AIPlayerTest do
                                                 " ", " ", " "])
     assert AIPlayer.score(board_without_win, "X", "O") === 0
   end
+
+  test "parallel_map maps a collection" do
+    fake_coll = [1, 2, 3, 4, 5]
+    fake_fn = fn(n) -> n * 2 end
+    assert AIPlayer.parallel_map(fake_coll, fake_fn) === Enum.map(fake_coll, fake_fn)
+  end
 end

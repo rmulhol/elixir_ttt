@@ -13,6 +13,10 @@ defmodule AIPlayer do
     end)
   end
 
+  defp minimax(board, player, opponent, _, 6) do
+    score(board, player, opponent) / 6
+  end
+
   defp minimax(board, player, opponent, my_turn?, depth) do
     cond do
       Rules.game_over?(board) -> score(board, player, opponent) / depth
@@ -23,7 +27,7 @@ defmodule AIPlayer do
 
   defp maximize(board, player, opponent, depth) do
     Enum.max(
-      Enum.map(Board.empty_spaces(board), fn(move) ->
+      parallel_map(Board.empty_spaces(board), fn(move) ->
         board
         |> Board.place_move(move, player)
         |> minimax(player, opponent, false, depth + 1)
@@ -33,7 +37,7 @@ defmodule AIPlayer do
 
   defp minimize(board, player, opponent, depth) do
     Enum.min(
-      Enum.map(Board.empty_spaces(board), fn(move) ->
+      parallel_map(Board.empty_spaces(board), fn(move) ->
         board
         |> Board.place_move(move, opponent)
         |> minimax(player, opponent, true, depth + 1)
@@ -53,5 +57,11 @@ defmodule AIPlayer do
       Rules.player_wins?(board, opponent) -> -10
       true -> 0
     end
+  end
+
+  def parallel_map(coll, fun) do
+    coll
+    |> Enum.map(&(Task.async(fn -> fun.(&1) end)))
+    |> Enum.map(&Task.await/1)
   end
 end
