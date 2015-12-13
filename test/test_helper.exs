@@ -1,6 +1,12 @@
 ExUnit.start()
 
 defmodule TestHelper do
+  use ExUnit.Case
+
+  def assert_includes(message, substring) do
+    assert Regex.match?(~r/#{substring}/i, message)
+  end
+
   def setup_board(passed_board) do
     board_length = Enum.count(passed_board)
     side_length = board_length |> :math.sqrt |> round

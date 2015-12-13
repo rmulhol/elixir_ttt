@@ -2,7 +2,7 @@ defmodule MessagesTest do
   use ExUnit.Case
 
   def assert_includes(message, substring) do
-    assert Regex.match?(~r/#{substring}/i, message)
+    TestHelper.assert_includes(message, substring)
   end
 
   test "intro_message welcomes the user to tic tac toe" do
